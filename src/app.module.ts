@@ -6,6 +6,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { pgConfig } from 'db.Config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,7 +18,9 @@ import { pgConfig } from 'db.Config';
       playground: true, // enable localhost:3000/graphql browser environment to test the query
     }),
 
-    UserModule
+    UserModule,
+
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
