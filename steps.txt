@@ -1,0 +1,2 @@
+1) nestjs + typeorm + graphql installation
+2) config graphQL configuration with User entity
