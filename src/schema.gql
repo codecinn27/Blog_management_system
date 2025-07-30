@@ -2,9 +2,33 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Profile {
+  id: Int!
+  bio: String!
+  avatar: String!
+  user: User!
+}
+
+type Tag {
+  id: Int!
+  name: String!
+  posts: [Post!]!
+}
+
+type Post {
+  id: Int!
+  title: String!
+  content: String!
+  user: User!
+  tags: [Tag!]!
+}
+
 type User {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: Int!
+  username: String!
+  email: String!
+  profile: Profile!
+  posts: [Post!]!
 }
 
 type Query {
