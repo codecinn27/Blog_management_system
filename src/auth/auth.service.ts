@@ -4,6 +4,7 @@ import { User } from '../entities/user.entity';
 import { CreateUserInput } from 'src/user/dto/create-user.input';
 import { Repository } from 'typeorm';
 import { hash } from 'argon2';
+import { SignInInput } from './dto/signIn.input';
 
 @Injectable()
 export class AuthService {
@@ -16,5 +17,9 @@ export class AuthService {
         });
         return await this.userRepo.save(newUser);
         // throw new Error('Method not implemented');
+    }
+
+    async validateLocalUser({username, password}: SignInInput){
+        const user = this.userRepo.findOneByOrFail({username})
     }
 }
