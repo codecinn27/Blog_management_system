@@ -8,6 +8,7 @@ import { SignInInput } from './dto/signIn.input';
 import { AuthJwtPayload } from './types/auth-jwt-payload';
 import { JwtService } from '@nestjs/jwt';
 import { AuthPayload } from './entities/auth-payload';
+import { Profile } from 'src/entities/profile.entity';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,10 @@ export class AuthService {
         const newUser = this.userRepo.create({
             ...input,
             password: hashedPassword,
+            profile: {
+                bio:'',
+                avatar:''
+            }as Profile,
         });
         return await this.userRepo.save(newUser);
         // throw new Error('Method not implemented');

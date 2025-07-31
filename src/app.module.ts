@@ -9,6 +9,7 @@ import dbConfig from '../db.Config';
 import { pgConfig } from '../dbSeed.config';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
@@ -27,7 +28,9 @@ import { ConfigModule } from '@nestjs/config';
 
     UserModule,
 
-    AuthModule
+    AuthModule,
+
+    TagModule
   ],
   controllers: [AppController],
   providers: [AppService],
