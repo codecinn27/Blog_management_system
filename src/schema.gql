@@ -38,7 +38,7 @@ type AuthPayload {
 
 type Query {
   users: [User!]!
-  user(id: Int!): User!
+  getUser(id: Int!): User!
 }
 
 type Mutation {

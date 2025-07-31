@@ -21,8 +21,11 @@ export class UserService {
     })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number): Promise<User> {
+    return await this.userRepo.findOneOrFail({
+      where: {id},
+      relations: ['profile', 'posts'],
+    });
   }
 
   update(id: number, updateUserInput: UpdateUserInput) {
