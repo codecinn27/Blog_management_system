@@ -31,7 +31,13 @@ type User {
   posts: [Post!]!
 }
 
+type AuthPayload {
+  userId: Int!
+  accessToken: String!
+}
+
 type Query {
+  users: [User!]!
   user(id: Int!): User!
 }
 
@@ -39,6 +45,7 @@ type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
   signUp(input: CreateUserInput!): User!
+  signIn(input: SignInInput!): AuthPayload!
 }
 
 input UpdateUserInput {
@@ -51,5 +58,10 @@ input UpdateUserInput {
 input CreateUserInput {
   username: String!
   email: String!
+  password: String!
+}
+
+input SignInInput {
+  username: String!
   password: String!
 }

@@ -21,11 +21,11 @@ export class Post{
 
     @Field(()=> User)
     @ManyToOne(()=> User, (user)=> user.posts)
-    user: Promise<User>;
+    user: User;
 
     @Field(()=> [Tag])
     @ManyToMany(()=> Tag, (tag)=> tag.posts, {cascade: true})
     @JoinTable()
-    tags: Promise<Tag[]>;
+    tags: Tag[];
     
 }

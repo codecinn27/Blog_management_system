@@ -18,5 +18,6 @@ export class AuthResolver {
     @Mutation(()=> AuthPayload)
     async signIn(@Args("input") input: SignInInput){
         const user = await this.authService.validateLocalUser(input)
+        return await this.authService.login(user);
     }
 }

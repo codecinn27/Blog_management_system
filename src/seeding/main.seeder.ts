@@ -1,3 +1,5 @@
+import { ProfileFactory } from './profile.factory';
+import { UserFactory } from './user.factory';
 import { Post } from '../entities/post.entity';
 import { Profile } from "../entities/profile.entity";
 import { DataSource } from "typeorm";
@@ -5,6 +7,7 @@ import { Seeder, SeederFactoryManager } from "typeorm-extension";
 import { User } from '../entities/user.entity';
 import { Tag } from '../entities/tag.entity';
 import { faker } from '@faker-js/faker';
+import { profile } from 'console';
 
 export class MainSeeder implements Seeder{
 
@@ -19,24 +22,29 @@ export class MainSeeder implements Seeder{
             {name: "Music"},
         ])
 
+        const userFactory = await factoryManager.get(User);
         const profileFactory = await factoryManager.get(Profile);
-        console.log("Seeding profile.....");
-        const profiles = await profileFactory.saveMany(5);
+        console.log("Seeding users and profiles.....");
 
-        const UserFactory = factoryManager.get(User);
-        console.log("Seeding users.....");
-        const users = await Promise.all(
+        const users: User[] = [];
+        
+        const usersWithProfiles = await Promise.all(
             Array(5)
             .fill('')
-            .map(async(_, i)=>{
-                const user = await UserFactory.make({
-                    profile: Promise.resolve(profiles[i]),
+            .map(async()=>{
+                const profile = await profileFactory.make();
+
+                const user = await userFactory.make({
+                    profile: profile
                 });
+                users.push(user);
+
                 return user;
             })
         );
+
         const userRepo = dataSource.getRepository(User);
-        await userRepo.save(users);
+        await userRepo.save(usersWithProfiles);
 
         const postFactory = await factoryManager.get(Post);
         console.log("Seeding post and profile......");
@@ -46,8 +54,8 @@ export class MainSeeder implements Seeder{
             .fill('')
             .map(async()=>{
                 const post = await postFactory.make({
-                    user: Promise.resolve(faker.helpers.arrayElement(users)),
-                    tags: Promise.resolve([faker.helpers.arrayElement(tag)]),
+                    user: faker.helpers.arrayElement(users),
+                    tags: [faker.helpers.arrayElement(tag)],
                 });
                 return post;
             })

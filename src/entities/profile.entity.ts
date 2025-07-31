@@ -19,5 +19,5 @@ export class Profile{
 
     @Field(()=> User)
     @OneToOne(()=> User, (user)=> user.profile)
-    user: Promise<User>;
+    user: User;
 }

@@ -27,11 +27,14 @@ export class User {
   password: string;
 
   @Field(()=> Profile)
-  @OneToOne(()=> Profile, (profile)=> profile.user, {cascade: true})
+  @OneToOne(()=> Profile, (profile)=> profile.user, {
+    cascade: true, // cascade: true option allows you to save profile when saving the user
+    eager: true //this will load profile when user is loaded
+  }) 
   @JoinColumn()
-  profile: Promise<Profile>;
+  profile: Profile;
 
   @Field(()=> [Post])
   @OneToMany(()=> Post, (post)=> post.user)
-  posts: Promise<Post[]>;
+  posts: Post[];
 }

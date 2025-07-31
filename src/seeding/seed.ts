@@ -1,10 +1,11 @@
-import { pgConfig } from "../../db.Config";
+
 import { DataSource, DataSourceOptions } from "typeorm";
 import { runSeeders, SeederOptions } from "typeorm-extension";
 import { ProfileFactory } from "./profile.factory";
 import { UserFactory } from "./user.factory";
 import { PostFactory } from "./post.factory";
 import { MainSeeder } from "./main.seeder";
+import { pgConfig } from "../../dbSeed.config";
 
 const options: DataSourceOptions & SeederOptions ={
     ...pgConfig,
