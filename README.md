@@ -47,7 +47,7 @@ http://localhost:3000/graphql
 ## 4) GraphQL queries & Mutation
 You can find all the sample queries and mutations in the following markdown file:
 
-📄 /graphql-docs/FeatureQuery.md
+📄 [FeatureQuery.md](https://github.com/codecinn27/Blog_management_system/blob/main/graphql-docs/FeatureQuery.md)
 
 
 ## 5) Known Issues & Challenges
