@@ -28,8 +28,11 @@ export class UserService {
     });
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserInput: UpdateUserInput) {
+    const user = await this.userRepo.findOneByOrFail({id});
+    return await this.userRepo.save(
+      new User(Object.assign(user, updateUserInput)),
+    );
   }
 
   remove(id: number) {

@@ -10,12 +10,13 @@ import { pgConfig } from '../dbSeed.config';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { TagModule } from './tag/tag.module';
+import jwtConfig from '../jwt.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env',
-      load: [dbConfig],
+      load: [dbConfig, jwtConfig],
       isGlobal: true,
     }),
     TypeOrmModule.forRoot(pgConfig),

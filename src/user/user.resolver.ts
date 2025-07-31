@@ -3,6 +3,8 @@ import { UserService } from './user.service';
 import { User } from '../entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { UseGuards } from '@nestjs/common';
+import { GqlJwtGuard } from 'src/auth/guard/gql-jwt/gql-jwt.guard';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -23,9 +25,13 @@ export class UserResolver {
     return this.userService.findOne(id);
   }
 
+  @UseGuards(GqlJwtGuard)
   @Mutation(() => User)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.userService.update(updateUserInput.id, updateUserInput);
+  updateUser(
+    @Args('id', {type: ()=> Int})id: number,
+    @Args('updateUserInput') updateUserInput: UpdateUserInput,
+  ) {
+    return this.userService.update(id, updateUserInput);
   }
 
   @Mutation(() => User)

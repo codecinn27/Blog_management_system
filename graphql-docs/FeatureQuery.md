@@ -6,19 +6,41 @@ mutation {
     email:"codecinn@gmail.com",
     password:"1234"
   }){
-    id username
+    id 
+    username
     email
   }
 }
 
 
 ## log-in 
-
+mutation{
+  signIn(input:{
+    username:"Cinn",
+    password: "1234"
+  })
+  {
+    userId
+    accessToken
+  }
+}
 
 ## view their own profile
 
 
 ## update their profile
+mutation{
+  
+  updateUser(id:1){
+    username:"Haha",
+    email: "ahah@mgmail.com"
+  }{
+        id 
+        username
+        email
+  
+	}
+}
 
 
 # 2 Post Management
