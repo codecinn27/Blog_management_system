@@ -5,6 +5,8 @@ import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlJwtGuard } from 'src/auth/guard/gql-jwt/gql-jwt.guard';
+import { CurrentUser } from 'src/auth/decorator/current-user.decorator';
+import { JwtUser } from 'src/auth/types/jwt-user';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -22,21 +24,18 @@ export class UserResolver {
 
   @UseGuards(GqlJwtGuard)
   @Query(() => User)
-  getUser(@Context() Context) {
-    const user = Context.req.user;
+  getUser(@CurrentUser() user: JwtUser) {
     return this.userService.findOne(user.userId);
   }
 
   @UseGuards(GqlJwtGuard)
   @Mutation(() => User)
   updateUser(
-      @Context() Context,
+      @CurrentUser() user: JwtUser,
       @Args('updateUserInput') updateUserInput: UpdateUserInput,
   ) {
 
-    const user = Context.req.user;
     console.log({user});
-    
     return this.userService.update(user.userId, updateUserInput);
   }
 
