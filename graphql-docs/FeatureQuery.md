@@ -31,21 +31,60 @@ mutation{
 
 ## 1.3) view their own profile
 ```
+<!--  to view must get the access token from login then paste it at the http header-->
+<!--  the id will be automatically pass to the function by using @Context in the nestjs function based on the userId store in the HTTP header -->
+HTTP header example: 
+{"authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsidXNlcklkIjo5fSwiaWF0IjoxNzU0MzIwMDg1LCJleHAiOjE3NTQzMjM2ODV9.6DLwvX1ekqMm2rHMcjS_N7DWJBXk3IaCLjdFz-oq8xY"}
+
+query {
+  getUser{
+    id
+    username
+    email
+    profile{
+        id 
+        bio
+        avatar
+    }
+    posts{
+        id
+        title
+        content
+    }
+  }
+}
+
+
 ```
 
 ## 1.4) update their profile
 ```
+<!-- to update sign in and get the accessToken -->
+<!-- sign in -->
 mutation{
-  
-  updateUser(id:1){
-    username:"Haha",
-    email: "ahah@mgmail.com"
-  }{
-        id 
-        username
-        email
-  
-	}
+  signIn(input:{
+    username:"Cinn",
+    password: "1234"
+  })
+  {
+    userId
+    accessToken
+  }
+}
+
+<!-- once log in get the accessToken then paste it into the header to login, the user id will be automatically extracted from the http header by using function @Context from nestjs  -->
+<!-- {"authorization": "Bearer "}-->
+<!-- eg: {"authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsidXNlcklkIjo5fSwiaWF0IjoxNzU0MzIwMDg1LCJleHAiOjE3NTQzMjM2ODV9.6DLwvX1ekqMm2rHMcjS_N7DWJBXk3IaCLjdFz-oq8xY"} -->
+
+mutation{
+  updateUser(updateUserInput:{
+    username:"Haha3",
+  })
+  {
+    id
+    username
+    email
+  }
 }
 ```
 

@@ -38,13 +38,13 @@ type AuthPayload {
 
 type Query {
   users: [User!]!
-  getUser(id: Int!): User!
+  getUser: User!
   tag: [Tag!]!
   getTag(id: Int!): Tag!
 }
 
 type Mutation {
-  updateUser(id: Int!, updateUserInput: UpdateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
   signUp(input: CreateUserInput!): User!
   signIn(input: SignInInput!): AuthPayload!

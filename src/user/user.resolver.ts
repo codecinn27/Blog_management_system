@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { User } from '../entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
@@ -20,18 +20,24 @@ export class UserResolver {
     return await this.userService.findAll();
   }
 
+  @UseGuards(GqlJwtGuard)
   @Query(() => User)
-  getUser(@Args('id', { type: () => Int }) id: number) {
-    return this.userService.findOne(id);
+  getUser(@Context() Context) {
+    const user = Context.req.user;
+    return this.userService.findOne(user.userId);
   }
 
   @UseGuards(GqlJwtGuard)
   @Mutation(() => User)
   updateUser(
-    @Args('id', {type: ()=> Int})id: number,
-    @Args('updateUserInput') updateUserInput: UpdateUserInput,
+      @Context() Context,
+      @Args('updateUserInput') updateUserInput: UpdateUserInput,
   ) {
-    return this.userService.update(id, updateUserInput);
+
+    const user = Context.req.user;
+    console.log({user});
+    
+    return this.userService.update(user.userId, updateUserInput);
   }
 
   @Mutation(() => User)
