@@ -55,3 +55,7 @@ You can find all the sample queries and mutations in the following markdown file
 Initially struggled with inserting dummy data into the PostgreSQL database.
 
 ✅ Solution: Used faker.js to generate realistic dummy users and seeded them into a cloud PostgreSQL database using Neon Console.
+
+## 6) ERD Diagram
+<img width="1122" height="662" alt="Blog Management Erd Diagram" src="https://github.com/user-attachments/assets/71ac24c4-014a-422e-bb7a-448bc04a4f7d" />
+
